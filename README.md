@@ -11,7 +11,7 @@ Il est possible de générer un module très facilement grâce à des commandes 
 Le schéma de base données est géré grâce à l'ORM Prisma : https://www.prisma.io/docs.
 
 Prisma peut se connecter à la base de données grâce à la valeur de la variable d'environnement DATABASE_URL à mettre dans un .env à la racine du projet (un exemple est donné dans .env.example).
-Ainsi, il est possible de modifier la base de données directement depuis le projet. Pour ce faire, il faut modifier le fichier schema.prisma, une fois la modification faite, pour l'appliquer à la base de données il suffit de lancer la commande `npx prisma migrate dev --name nom_de_la_migration`.
+Ainsi, il est possible de modifier la base de données directement depuis le projet. Pour ce faire, il faut modifier le fichier schema.prisma, une fois la modification faite, pour l'appliquer à la base de données il suffit de lancer la commande `npx prisma migrate dev --name nom_de_la_migration`. Cette commande crée une migration sauvegardée dans le dossier prisma/migrations/. Ainsi, on garde une trace des changements faits sur le schéma de base de données au fil du temps.
 
 C'est également le client Prisma qui va servir à agir sur les tables (créer un user, supprimer une session, ...). Pour cela un fichier client.ts exporte une instance de prisma, il est important d'en garder qu'une seule et donc d'importer cette instance partout où on en aura besoin, notamment dans les fichiers *.service.ts.
 
