@@ -6,6 +6,10 @@ C'est un backend NestJS (framework de NodeJS).
 Nest fonctionne par module, on crée en général un module (*.module.ts) par table en base de données, chaque module contient un service ( *.service.ts ) et un controller ( *.controller.ts ). Le controller spécifie les endpoints (routes) et le service toutes les fonctions qui vont servir à manipuler les données.
 Il est possible de générer un module très facilement grâce à des commandes de nest-cli (https://docs.nestjs.com/cli/overview), notamment : `nest generate resource users` qui va créer les fichiers users.module.ts, users.controller.ts, users.service.ts ainsi que d'autres fichiers utiles dans un dossier qui sera aussi nommé users. Le fichier controller contiendra même les principales routes classique (create, update, findOne, findAll, delete), il ne reste plus qu'a les implémenter.
 
+Niveau validation des requêtes, Nest utilise des DTO (Data Transfer Object) : https://docs.nestjs.com/techniques/validation
+
+Nest a un concept particulier de décorateurs, avec beaucoup qui sont déjà créés et mis à disposition par Nest, par exemple le décorateur @Get() mis au-dessus d'une route d'un controller fait en sorte qu'elle soit accessible par la méthode GET. Mais on peut aussi créer les notres totalement personnalisés : https://docs.nestjs.com/custom-decorators
+
 ## Gestion de la base de données : Prisma
 
 Le schéma de base données est géré grâce à l'ORM Prisma : https://www.prisma.io/docs.
