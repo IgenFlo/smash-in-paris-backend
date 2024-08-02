@@ -21,6 +21,17 @@ C'est également le client Prisma qui va servir à agir sur les tables (créer u
 
 Si vous utilisez vscode, le package prisma permet d'ajouter des couleurs et du formattage automatique sur le fichier schema.prisma.
 
+# First collaborators
+
+Flow - https://x.com/FlowXII  
+Wtrcld - https://x.com/WtrcldF  
+Lidrial - https://x.com/LidrialSSB  
+Jukerme - https://x.com/Jukerme  
+Seillemar  
+GateauLune - https://x.com/gateaulune_  
+
+This project is an open source backend for a website allowing the creation of sessions for players from the smash bro community.
+
 # Doc autogénérée de NestJS
 
 <p align="center">
