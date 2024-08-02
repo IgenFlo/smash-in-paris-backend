@@ -32,6 +32,8 @@ GateauLune - https://x.com/gateaulune_
 
 This project is an open source backend for a website allowing the creation of sessions for players from the smash bro community.
 
+Frontend repository : https://github.com/gateaulune/smash-in-paris
+
 # Doc autogénérée de NestJS
 
 <p align="center">
