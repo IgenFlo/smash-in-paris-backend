@@ -2,8 +2,8 @@
 
 ## Le backend : NestJS 
 
-C'est un backend NestJS (framework de NodeJS)
-Nest fonctionne par module, on crée en général un module (*.module.ts) par table en base de données, chaque module contient un service (*.service.ts) et un controller (*.controller.ts). Le controller spécifie les endpoints (routes) et le service toutes les fonctions qui vont servir à manipuler les données.
+C'est un backend NestJS (framework de NodeJS).
+Nest fonctionne par module, on crée en général un module (*.module.ts) par table en base de données, chaque module contient un service ( *.service.ts ) et un controller ( *.controller.ts ). Le controller spécifie les endpoints (routes) et le service toutes les fonctions qui vont servir à manipuler les données.
 Il est possible de générer un module très facilement grâce à des commandes de nest-cli (https://docs.nestjs.com/cli/overview), notamment : `nest generate resource users` qui va créer les fichiers users.module.ts, users.controller.ts, users.service.ts ainsi que d'autres fichiers utiles dans un dossier qui sera aussi nommé users. Le fichier controller crée même les principales routes classique (create, update, findOne, findAll, delete), il ne reste plus qu'a les implémenter.
 
 ## Gestion de la base de données : Prisma
