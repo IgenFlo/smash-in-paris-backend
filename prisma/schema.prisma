@@ -14,6 +14,78 @@ datasource db {
 }
 
 model User {
-  id  Int  @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   discordId String @unique
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  sessionsCreated Session[]
+
+  sessionsParticipated SessionParticipant[]
+}
+
+model Session {
+  id Int @id @default(autoincrement())
+
+  title       String
+  description String
+  startAt     DateTime
+  seatsCount  Int
+
+  creatorId Int
+  creator   User @relation(fields: [creatorId], references: [id])
+
+  coverImage File?
+
+  address Address?
+
+  participants SessionParticipant[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SessionParticipant {
+  id Int @id @default(autoincrement())
+
+  sessionId Int
+  session   Session @relation(fields: [sessionId], references: [id])
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model File {
+  id       Int    @id @default(autoincrement())
+  fileName String
+  fileUrl  String
+  fileSize Int
+
+  sessionId Int?     @unique
+  session   Session? @relation(fields: [sessionId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Address {
+  id Int @id @default(autoincrement())
+
+  latitude       Float
+  longitude      Float
+  address        String?
+  city           String?
+  zipCode        String?
+  country        String?
+  additionalInfo String?
+
+  sessionId Int?     @unique
+  session   Session? @relation(fields: [sessionId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
