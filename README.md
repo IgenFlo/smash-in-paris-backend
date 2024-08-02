@@ -1,3 +1,22 @@
+# Notes personnalisées
+
+## Le backend : NestJS 
+
+C'est un backend NestJS (framework de NodeJS)
+Nest fonctionne par module, on crée en général un module (*.module.ts) par table en base de données, chaque module contient un service ( *.service.ts) et un controller ( *.controller.ts). Le controller spécifie les endpoints (routes) et le service toutes les fonctions qui vont servir à manipuler les données.
+Il est possible de générer un module très facilement grâce à des commandes de nest-cli (https://docs.nestjs.com/cli/overview), notamment : `nest generate resource users` qui va créer les fichiers users.module.ts, users.controller.ts, users.service.ts ainsi que d'autres fichiers utiles dans un dossier qui sera aussi nommé users. Le fichier controller crée même les principales routes classique (create, update, findOne, findAll, delete), il ne reste plus qu'a les implémenter.
+
+## Gestion de la base de données : Prisma
+
+Le schéma de base données est géré grâce à l'ORM Prisma : https://www.prisma.io/docs
+Prisma peut se connecter à la base de données grâce à la valeur de la variable d'environnement DATABASE_URL à mettre dans un .env à la racine du projet (un exemple est donné dans .env.example).
+Ainsi, il est possible de modifier la base de données directement depuis le projet. Pour ce faire, il faut modifier le fichier schema.prisma, une fois la modification faite, pour l'appliquer à la base de données il suffit de lancer la commande `npx prisma migrate dev --name nom_de_la_migration`.
+C'est également le client Prisma qui va servir à agir sur les tables (créer un user, supprimer une session, ...). Pour cela un fichier client.ts exporte une instance de prisma, il est important d'en garder qu'une seule et donc d'importer cette instance partout où on en aura besoin, notamment dans les fichiers *.service.ts.
+
+Si vous utilisez vscode, le package prisma permet d'ajouter des couleurs et du formattage automatique sur le fichier schema.prisma.
+
+# Doc autogénérée de NestJS
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
@@ -35,14 +54,8 @@ $ yarn install
 ## Running the app
 
 ```bash
-# development
-$ yarn run start
-
-# watch mode
+# start in dev mode (watch file changes and hot reload)
 $ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
 ```
 
 ## Test
