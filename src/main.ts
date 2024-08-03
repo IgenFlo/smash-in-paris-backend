@@ -23,5 +23,6 @@ async function bootstrap() {
   Logger.log(
     `🚀 ${process.env.PROJECT_NAME} backend is running on http://localhost:${port}`,
   );
+  Logger.log(`Swagger UI available at http://localhost:${port}/swagger`);
 }
 bootstrap();
