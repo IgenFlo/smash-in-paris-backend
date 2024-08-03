@@ -33,16 +33,7 @@ export class DiscordService {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         },
       );
-      const accessToken = tokenResponse.data.access_token;
-      const userResponse = await this.httpService.axiosRef.get(
-        'https://discord.com/api/users/@me',
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
-      return userResponse.data;
+      return tokenResponse.data.access_token;
     } catch (error) {
       Logger.error(
         'Error during OAuth process:',

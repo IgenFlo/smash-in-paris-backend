@@ -23,6 +23,7 @@ async function bootstrap() {
       `The API documentation for the ${process.env.PROJECT_NAME} application`,
     )
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
