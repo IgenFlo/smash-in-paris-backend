@@ -21,6 +21,10 @@ C'est également le client Prisma qui va servir à agir sur les tables (créer u
 
 Si vous utilisez vscode, le package prisma permet d'ajouter des couleurs et du formattage automatique sur le fichier schema.prisma.
 
+## Documenter et tester les routes : Swagger
+
+Swagger s'intègre facilement à NestJs en offrant une interface utilisateur pour interagir avec les routes que l'on crée : https://docs.nestjs.com/openapi/introduction
+
 # First collaborators
 
 Flow - https://x.com/FlowXII  
