@@ -7,6 +7,15 @@ async function bootstrap() {
   const port = process.env.PORT || 5000;
   const app = await NestFactory.create(AppModule);
 
+  // CORS
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true,
+  });
+
   // Swagger
   const config = new DocumentBuilder()
     .setTitle(`${process.env.PROJECT_NAME} API`)
