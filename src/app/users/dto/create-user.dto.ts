@@ -6,4 +6,9 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   discordId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  discordUsername: string;
 }

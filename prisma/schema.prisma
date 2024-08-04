@@ -14,8 +14,9 @@ datasource db {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
-  discordId String @unique
+  id              Int    @id @default(autoincrement())
+  discordId       String @unique
+  discordUserName String
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())

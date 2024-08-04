@@ -4,10 +4,12 @@ import { prisma } from '../../shared/client';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    const { discordId } = createUserDto;
-    return prisma.user.create({
-      data: { discordId },
+  upsert(createUserDto: CreateUserDto) {
+    const { discordId, discordUsername } = createUserDto;
+    return prisma.user.upsert({
+      where: { discordId },
+      create: { discordId, discordUserName: discordUsername },
+      update: { discordId, discordUserName: discordUsername },
     });
   }
 }
