@@ -6,9 +6,15 @@ import { UsersModule } from './app/users/users.module';
 import { DiscordModule } from './shared/discord/discord.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { GeocodingModule } from './shared/geocoding/geocoding.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UsersModule, DiscordModule],
+  imports: [
+    ConfigModule.forRoot(),
+    UsersModule,
+    DiscordModule,
+    GeocodingModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,

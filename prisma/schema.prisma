@@ -75,13 +75,10 @@ model File {
 
 model Address {
   id Int @id @default(autoincrement())
-
+  placeId        String?  // place id from geocoding api
   latitude       Float
   longitude      Float
-  address        String?
-  city           String?
-  zipCode        String?
-  country        String?
+  displayName    String
   additionalInfo String?
 
   sessionId Int?     @unique
