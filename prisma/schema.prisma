@@ -75,7 +75,7 @@ model File {
 
 model Address {
   id Int @id @default(autoincrement())
-  placeId        String?  // place id from geocoding api
+  placeId        String  // place id from geocoding api
   latitude       Float
   longitude      Float
   displayName    String
