@@ -1,9 +1,9 @@
-import { DiscordUserData } from './discord.types';
+import { UserInRequest } from './users.types';
 
 declare global {
   namespace Express {
     interface Request {
-      user: DiscordUserData;
+      user: UserInRequest;
     }
   }
 }

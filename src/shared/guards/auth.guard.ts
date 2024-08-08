@@ -8,6 +8,8 @@ import { Reflector } from '@nestjs/core';
 import axios from 'axios';
 import { Request } from 'express';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorators';
+import { prisma } from '../client';
+import { DiscordUserData } from '../types/discord.types';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -28,14 +30,25 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException();
     }
     try {
-      const { data } = await axios.get('https://discord.com/api/users/@me', {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const { data: discordUserData } = await axios.get<DiscordUserData>(
+        'https://discord.com/api/users/@me',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
+      );
+      const userInDatabase = await prisma.user.findUnique({
+        where: { discordId: discordUserData.id },
       });
       // 💡 We're assigning the user data to the request object here
       // so that we can access it in our route handlers
-      request['user'] = data;
+      request.user = {
+        ...discordUserData,
+        // user id from database overrides user id from discord
+        // user discord id is now in the discordId field
+        ...userInDatabase,
+      };
     } catch {
       throw new UnauthorizedException();
     }

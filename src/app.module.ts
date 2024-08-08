@@ -7,12 +7,14 @@ import { DiscordModule } from './shared/discord/discord.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { GeocodingModule } from './shared/geocoding/geocoding.module';
+import { SessionsModule } from './app/sessions/sessions.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     UsersModule,
     DiscordModule,
+    SessionsModule,
     GeocodingModule,
   ],
   controllers: [AppController],
