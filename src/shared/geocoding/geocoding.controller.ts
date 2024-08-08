@@ -1,6 +1,9 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { GeocodingService } from './geocoding.service';
-import { GeocodingPlace } from '../types/geocoding.types';
+import {
+  GeocodingPlaceSearchResult,
+  ReverseGeocodingPlaceResult,
+} from '../types/geocoding.types';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from '../decorators/public.decorators';
 
@@ -11,7 +14,18 @@ export class GeocodingController {
 
   @Public()
   @Get('search/:search')
-  async search(@Param('search') search: string): Promise<GeocodingPlace[]> {
+  async search(
+    @Param('search') search: string,
+  ): Promise<GeocodingPlaceSearchResult[]> {
     return this.geocodingService.search(search);
+  }
+
+  @Public()
+  @Get('reverse/:lat/:lon')
+  async reverse(
+    @Param('lat') lat: string,
+    @Param('lon') lon: string,
+  ): Promise<ReverseGeocodingPlaceResult> {
+    return this.geocodingService.reverseGeocodeWithLatLon({ lat, lon });
   }
 }
