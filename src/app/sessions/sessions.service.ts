@@ -46,6 +46,18 @@ export class SessionsService {
       where: {
         creatorId: user.id,
       },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        startAt: true,
+        seatsCount: true,
+        address: {
+          select: {
+            displayName: true,
+          },
+        },
+      },
     });
   }
 
