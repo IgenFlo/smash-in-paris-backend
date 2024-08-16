@@ -78,7 +78,7 @@ model Address {
   placeId        String  // place id from geocoding api
   latitude       Float
   longitude      Float
-  displayName    String
+  displayName    String @db.VarChar(500)
   additionalInfo String?
 
   sessionId Int?     @unique
