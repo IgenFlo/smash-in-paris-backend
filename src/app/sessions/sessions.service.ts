@@ -7,6 +7,7 @@ import { CreateSessionDto } from './dto/create-session.dto';
 import { prisma } from '../../shared/client';
 import { GeocodingService } from 'src/shared/geocoding/geocoding.service';
 import { UserInRequest } from 'src/shared/types/users.types';
+import { SearchSessionsFiltersDto } from './dto/search-sessions-filters.dto';
 
 @Injectable()
 export class SessionsService {
@@ -41,8 +42,46 @@ export class SessionsService {
     });
   }
 
-  findAll() {
-    return `This action returns all sessions`;
+  async findNearest(user: UserInRequest, filters: SearchSessionsFiltersDto) {
+    const { lat, lon } = filters;
+
+    const nearestSessions: Array<{ id: number }> = await prisma.$queryRaw`
+      SELECT s.id,
+            (6371 * acos(cos(radians(${lat})) * cos(radians(a.latitude)) * cos(radians(a.longitude) - radians(${lon})) + sin(radians(${lat})) * sin(radians(a.latitude)))) AS distance
+      FROM Session s
+      JOIN Address a ON s.id = a.sessionId
+      JOIN User u ON s.creatorId = u.id
+      ORDER BY distance
+      LIMIT 10;
+    `;
+
+    const sessions = nearestSessions.map(({ id }) => {
+      return prisma.session.findUnique({
+        where: {
+          id,
+        },
+        select: {
+          id: true,
+          title: true,
+          startAt: true,
+          seatsCount: true,
+          address: {
+            select: {
+              displayName: true,
+              latitude: true,
+              longitude: true,
+            },
+          },
+          participants: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+    });
+
+    return await Promise.all(sessions);
   }
 
   findAllMine(user: UserInRequest) {

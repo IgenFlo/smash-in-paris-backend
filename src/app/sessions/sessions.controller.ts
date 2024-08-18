@@ -1,9 +1,18 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { SessionsService } from './sessions.service';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { DUser } from 'src/shared/decorators/user.decorator';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserInRequest } from 'src/shared/types/users.types';
+import { SearchSessionsFiltersDto } from './dto/search-sessions-filters.dto';
 
 @ApiTags('Sessions')
 @Controller('sessions')
@@ -20,8 +29,11 @@ export class SessionsController {
   }
 
   @Get()
-  findAll() {
-    return this.sessionsService.findAll();
+  findNearest(
+    @DUser() user: UserInRequest,
+    @Query() filters: SearchSessionsFiltersDto,
+  ) {
+    return this.sessionsService.findNearest(user, filters);
   }
 
   @Get('mine')
