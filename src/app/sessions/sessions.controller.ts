@@ -35,7 +35,7 @@ export class SessionsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.sessionsService.remove(+id);
+  remove(@DUser() user: UserInRequest, @Param('id') id: string) {
+    return this.sessionsService.remove(user, +id);
   }
 }

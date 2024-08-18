@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { prisma } from '../../shared/client';
 import { GeocodingService } from 'src/shared/geocoding/geocoding.service';
@@ -62,10 +66,22 @@ export class SessionsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} session`;
+    return prisma.session.findUnique({
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} session`;
+  async remove(user: UserInRequest, id: number) {
+    const session = await this.findOne(id);
+    if (!session) throw new NotFoundException();
+    if (session.creatorId !== user.id)
+      throw new ForbiddenException('You are not the creator of this session');
+    return prisma.session.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
