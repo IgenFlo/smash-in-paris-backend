@@ -51,8 +51,8 @@ export class SessionsService {
       FROM Session s
       JOIN Address a ON s.id = a.sessionId
       JOIN User u ON s.creatorId = u.id
+      WHERE s.startAt > NOW()
       ORDER BY distance
-      LIMIT 10;
     `;
 
     const sessions = nearestSessions.map(({ id }) => {
